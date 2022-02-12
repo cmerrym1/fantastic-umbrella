@@ -6,7 +6,7 @@ class ProductTag extends Model {}
 
 ProductTag.init(
   {
-    tag_id: {
+    gitag_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'Product',
