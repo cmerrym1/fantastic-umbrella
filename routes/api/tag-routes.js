@@ -30,21 +30,21 @@ router.get('/:id', (req, res) => {
       res.status(500).json(err);
     });
 });
-
-Tag.create({
-  Tag_name: "Basketball",
-  tagIds: [1, 2, 3, 4]
-})
-.then((Tag) => {
-  // if there's product tags, we need to create pairings to bulk create in the ProductTag model
-  if (req.body.tagIds.length) {
-    const TagIdArr = req.body.tagIds.map((tag_id) => {
-      return {
-        Tag_id: Tag.id,
-      };
-    });
-    return Tag.bulkCreate(TagIdArr);
-  }
+router.post('/', (req, res) => {
+  Tag.create({
+    Tag_name: "Basketball",
+    tagIds: [1, 2, 3, 4]
+  })
+  .then((Tag) => {
+    // if there's product tags, we need to create pairings to bulk create in the ProductTag model
+    if (req.body.tagIds.length) {
+      const TagIdArr = req.body.tagIds.map((tag_id) => {
+        return {
+          Tag_id: Tag.id,
+        };
+      });
+      return Tag.bulkCreate(TagIdArr);
+    }
   // if no product tags, just respond
   res.status(200).json(Tag);
 })
@@ -52,6 +52,7 @@ Tag.create({
 .catch((err) => {
   console.log(err);
   res.status(400).json(err);
+  });
 });
 
 router.put('/:id', (req, res) => {
